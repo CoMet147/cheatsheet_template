@@ -1,0 +1,81 @@
+\begingroup
+\raggedright
+\section{Math Mode Glossary}
+
+
+\subsection{Vectors}
+Vectors are typically denoted in boldface, e.g., $\bvec{v}$. A column vector is written as:
+\begin{formulabox}
+$\bvec{v} = \pmat{ v_1 \\ v_2 \\ v_3 }$
+\end{formulabox}
+
+
+\subsection{Matrices}
+Matrices are usually denoted by uppercase letters. An example of a 3x3 matrix is:
+\begin{formulabox}
+$A = \pmat{ a_{11} & a_{12} & a_{13} \\ a_{21} & a_{22} & a_{23} \\ a_{31} & a_{32} & a_{33} }$
+\end{formulabox}
+
+
+\subsection{Wavefunctions (Quantum Mechanics)}
+A wavefunction, often denoted by $\psi$, describes the quantum state of a system. For a particle in a 1D box, the stationary states are:
+\begin{formulabox}
+$\psi_n(x) = \sqrt{\frac{2}{L}} \sin\left(\frac{n\pi x}{L}\right)$
+\end{formulabox}
+
+
+\subsection{Euler's Identity}
+\begin{formulabox}
+    $e^{i\pi} + 1 = 0$
+\end{formulabox}
+Euler's identity, a beautiful equation.
+
+
+\subsection{Navier-Stokes Equation}
+\begin{formulabox}
+    $\rho \left( \frac{\partial \bvec{v}}{\partial t} + \bvec{v} \cdot \nabla \bvec{v} \right) = - \nabla p + \mu \nabla^2 \bvec{v} + \bvec{f}$
+\end{formulabox}
+Incompressible flow. Describes the motion of viscous fluid substances.
+
+
+\subsection{Heat Equation}
+\begin{formulabox}
+    $\frac{\partial u}{\partial t} - \alpha \nabla^2 u = 0$
+\end{formulabox}
+Describes the distribution of heat in a given region over time.
+
+
+\subsection{3D Hooke's Law (Isotropic)}
+\begin{formulabox}
+    \resizebox{\linewidth}{!}{%
+    $
+    \pmat{ \sigma_{11} \\ \sigma_{22} \\ \sigma_{33} \\ \sigma_{23} \\ \sigma_{13} \\ \sigma_{12} } = \frac{E}{(1+\nu)(1-2\nu)} 
+    \pmat{ 
+    1-\nu & \nu & \nu & 0 & 0 & 0 \\
+    \nu & 1-\nu & \nu & 0 & 0 & 0 \\
+    \nu & \nu & 1-\nu & 0 & 0 & 0 \\
+    0 & 0 & 0 & \frac{1-2\nu}{2} & 0 & 0 \\
+    0 & 0 & 0 & 0 & \frac{1-2\nu}{2} & 0 \\
+    0 & 0 & 0 & 0 & 0 & \frac{1-2\nu}{2} 
+    } 
+    \pmat{ \varepsilon_{11} \\ \varepsilon_{22} \\ \varepsilon_{33} \\ 2\varepsilon_{23} \\ 2\varepsilon_{13} \\ 2\varepsilon_{12} }
+    $
+    }
+\end{formulabox}
+Stress-strain relationship for linear isotropic materials.
+
+
+\subsection{Von Mises Yield Criterion}
+\begin{formulabox}
+    $\sigma_v^2 = \frac{1}{2} [(\sigma_{11}-\sigma_{22})^2 + (\sigma_{22}-\sigma_{33})^2 + (\sigma_{33}-\sigma_{11})^2 + 6(\sigma_{12}^2 + \sigma_{23}^2 + \sigma_{31}^2)]$
+\end{formulabox}
+Predicts yielding of ductile materials under complex loading.
+
+
+\subsection{Schrödinger Equation (Time-Independent)}
+\begin{formulabox}
+    $\hat{H}\psi = E\psi$
+\end{formulabox}
+Fundamental equation of quantum mechanics for stationary states.
+
+\endgroup

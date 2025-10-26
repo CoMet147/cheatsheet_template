@@ -1,0 +1,59 @@
+\begingroup
+\raggedright
+\section{Mini-Pages}
+
+
+\subsection{Two Columns}
+\begin{minipage}{0.45\linewidth}
+    \textbf{Left Column} \\
+    This is the left column inside a minipage.
+\end{minipage}
+\hfill
+\begin{minipage}{0.45\linewidth}
+    \textbf{Right Column} \\
+    This is the right column inside a minipage.
+\end{minipage}
+
+
+\subsection{Three Columns}
+\begin{minipage}{0.3\linewidth}
+    \textbf{Col 1} \\
+    Content
+\end{minipage}
+\hfill
+\begin{minipage}{0.3\linewidth}
+    \textbf{Col 2} \\
+    Content
+\end{minipage}
+\hfill
+\begin{minipage}{0.3\linewidth}
+    \textbf{Col 3} \\
+    Content
+\end{minipage}
+
+
+\subsection{Formula and List Side-by-Side}
+\begin{minipage}[t]{0.5\linewidth}
+    \begin{formulabox}
+        $E = mc^2$
+    \end{formulabox}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.45\linewidth}
+    \begin{itemize}
+        \item E: Energy
+        \item m: Mass
+        \item c: Speed of light
+    \end{itemize}
+\end{minipage}
+
+
+\subsection{Figure and Text Side-by-Side}
+\begin{minipage}[c]{0.5\linewidth}
+    \includegraphics[width=\linewidth]{figures/example.png}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.45\linewidth}
+    This minipage contains text placed next to a figure. The figure shows a potential energy curve, illustrating concepts like binding energy ($U_0$) and equilibrium distance ($r_0$).
+\end{minipage}
+
+
+\endgroup

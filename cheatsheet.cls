@@ -34,14 +34,19 @@
 \RequirePackage{changepage}
 \RequirePackage{etoolbox} % check ifempty
 \RequirePackage[dvipsnames]{xcolor}
-\newcommand{\customColor}{RoyalBlue}
 \RequirePackage{tcolorbox}
+\tcbuselibrary{breakable,skins}
+\RequirePackage{graphicx}
+\RequirePackage{booktabs}
+\RequirePackage{colortbl}
+\RequirePackage{multirow}
+\RequirePackage{listings}
 
 %% Link to GitHub Repo
 \RequirePackage[hidelinks,
   pdftex,
-  pdfauthor={Micha Bosshart},
-  pdftitle={https://github.com/LaTeX-Template-Share}
+  pdfauthor={Colin Mettler},
+  pdftitle={https://github.com/CoMet147/cheatsheet_template},
 ]{hyperref}
 
 
@@ -51,17 +56,24 @@
 \DeclareOption{onecolumn}{\OptionNotUsed}
 \DeclareOption{twocolumns}{\def\@@colnum{2}}
 \DeclareOption{threecolumns}{\def\@@colnum{3}}
-\setcounter{secnumdepth}{0} % disable counting
-\DeclareOption{numerate}{\setcounter{secnumdepth}{3}}
+\setcounter{secnumdepth}{3} % enable counting
+\DeclareOption{nonumbering}{\setcounter{secnumdepth}{0}}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{extarticle}}
 \ProcessOptions\relax
+
+%% Colors
+\definecolor{ThemeDarkBlue}{HTML}{0a0f1a}
+\definecolor{ThemeLightBlue}{HTML}{1a1f2e}
+\definecolor{FormulaBG}{HTML}{e8f4fd}
+\definecolor{BorderBlue}{HTML}{4b91e2}
 
 %% Header
 \def\@doctitle{}
 \long\def\doctitle#1{\def\@doctitle{#1}}
 \def\@docauthor{}
 \long\def\author#1{\def\@docauthor{#1}}
-
+\def\@docversion{}
+\long\def\docversion#1{\def\@docversion{#1}}
 
 %% text margin for left and right
 \def\@@leftTextMargin{1mm}
@@ -71,7 +83,7 @@
 \AtBeginDocument{%
     \begin{multicols*}{\@@colnum}%
     \begin{adjustwidth}{\@@leftTextMargin}{\@@rightTextMargin}%
-    \Header{\href{https://github.com/LaTeX-Template-Share}{\@doctitle}}{\@docauthor}
+    \Header{\@doctitle}{\@docauthor}{\@docversion}
     \small%
 }
 \AtEndDocument{%
@@ -79,13 +91,12 @@
     \end{multicols*}%
 }
 
-
 %% SECTION
 \newcommand*{\sectionbox}[1]{%
     \begin{adjustwidth}{-\@@leftTextMargin}{-\@@rightTextMargin}
         \begin{tcolorbox}[%
-                        arc=1mm,%
-                        colback=\customColor,%
+                        arc=0mm,%
+                        colback=ThemeLightBlue,%
                         boxrule=0pt,%
                         valign=center,%
                         height from=5mm to 5cm,%
@@ -109,12 +120,13 @@
                             {0.1mm}% space after
                             {\normalsize\sectionbox}% function which automaticaly gets the section argument
 }
+
 %% SUBSECTION
 \newcommand*{\subsectionbox}[1]{%
     \begin{adjustwidth}{-\@@leftTextMargin}{-\@@rightTextMargin}
         \begin{tcolorbox}[%
-                        arc=1mm,%
-                        colback=\customColor!60,%
+                        arc=0mm,%
+                        colback=ThemeLightBlue,%
                         boxrule=0pt,%
                         valign=center,%
                         height from=5mm to 5cm,%
@@ -138,12 +150,13 @@
                             {0.1mm}% space after
                             {\normalsize\subsectionbox}%
 }
+
 %% SUBSUBSECTION
 \newcommand*{\subsubsectionbox}[1]{%
     \begin{adjustwidth}{-\@@leftTextMargin}{-\@@rightTextMargin}
         \begin{tcolorbox}[%
-                        arc=1mm,% corner radius
-                        colback=\customColor!30,%
+                        arc=0mm,% corner radius
+                        colback=ThemeLightBlue,%
                         boxrule=0pt,% border box
                         valign=center,% vertically center title
                         height from=5mm to 5cm,%
@@ -169,42 +182,84 @@
 }
 
 %% HEADER
-\newcommand{\Header}[3][]{%
+\newcommand{\Header}[4][]{%
     \begin{adjustwidth}{-\@@leftTextMargin}{-\@@rightTextMargin}
         \begin{tcolorbox}[%
-            arc=1mm,%
-            colframe=\customColor,%
-            colback=\customColor,%
+            arc=0mm,%
+            colframe=ThemeDarkBlue,%
+            colback=ThemeDarkBlue,%
             boxrule=0pt,%
-            toptitle=0mm,%
-            bottomtitle=1mm,%
+            toptitle=1mm,%
+            bottomtitle=-1mm,%
             right=0mm,%
             left=0mm,%
             fontupper=\color{white},%
             after skip = 0.01mm,%
-            top=-1mm,%
+            top=0mm,%
             bottom=0mm,%
-            title= \huge \center \textbf{#2} \par%
+            title= \huge \center \textbf{#2} \ifstrempty{#4}{}{\small\ #4} \par%
             \ifstrempty{#3}{}{
-                \center \large \vskip1mm #3 %
+                \center \normalsize \vskip 0mm #3 %
             }
         ]%
-        \center \small Version: \today \vskip1mm \tiny #1
         \end{tcolorbox}%
     \end{adjustwidth}
 }
 
-%% MATHBOX
-% PRE: #1 math expression
-\newcommand{\mathbox}[1]{%
-    \vskip4pt%
-    \begin{center}%
-        \boxed{%
-            #1%
-        }%
-    \end{center}%
-    \vskip4pt%
+
+%% Box for highlighting formulas
+\newtcolorbox{formulabox}{
+    breakable,
+    colback=FormulaBG,
+    colframe=BorderBlue,
+    arc=0mm,
+    boxrule=0.3mm,
+    left=2pt, right=2pt, top=1pt, bottom=1pt,
+    halign=center
 }
+
+%% Box for topics
+\newtcolorbox{topicbox}[1]{
+    enhanced,
+    breakable,
+    colback=White,
+    colframe=ThemeLightBlue,
+    boxrule=1pt,
+    arc=0mm,
+    boxsep=2pt,
+    top=7pt, bottom=1pt, left=2pt, right=2pt,
+    title=#1,
+    fonttitle=\bfseries,
+    colbacktitle=ThemeLightBlue,
+    coltitle=White,
+    attach boxed title to top left={yshift=-0.25cm, xshift=0.25cm},
+    boxed title style={arc=0mm, top=0pt, bottom=-1pt, left=-1pt, right=-1pt,},
+    before skip=0mm,
+    after skip=0mm
+}
+
+%% Box for side-by-side content
+\newtcolorbox{sidebysidebox}[1]{
+    enhanced,
+    breakable,
+    colback=White,
+    colframe=ThemeLightBlue,
+    boxrule=1pt,
+    arc=0mm,
+    boxsep=2pt,
+    top=7pt, bottom=1pt, left=2pt, right=2pt,
+    title=#1,
+    fonttitle=\bfseries,
+    colbacktitle=ThemeLightBlue,
+    coltitle=White,
+    attach boxed title to top left={yshift=-0.25cm, xshift=0.25cm},
+    boxed title style={arc=0mm, top=0pt, bottom=-1pt, left=-1pt, right=-1pt,},
+    before skip=0mm,
+    after skip=0mm,
+    sidebyside,
+    sidebyside align=top
+}
+
 
 %% MATLAB
 % simulates matlab syntax font
@@ -220,7 +275,38 @@
 
 \setlength{\parindent}{0cm}
 \setlength\columnsep{0.5mm}
-\setlength{\columnseprule}{0pt}
+\setlength{\columnseprule}{0.4pt}
+\renewcommand{\columnseprulecolor}{\color{ThemeDarkBlue}}
+\raggedcolumns
 \setlength{\textwidth}{597pt} % max 597pt
 \setlength{\textheight}{845pt} % max 845pt
-\RequirePackage[top=0.01cm, bottom=0.05cm, left=0.01cm, right=0.01cm]{geometry}
+\usepackage[
+    landscape,
+    a4paper,
+    left=0.2cm,
+    right=0.2cm,
+    top=0.2cm,
+    bottom=0.2cm,
+    columnsep=0.2cm
+]{geometry}
+
+%% Custom vector and matrix commands
+\newcommand{\bvec}[1]{\mathbf{#1}}
+\newcommand{\pmat}[1]{\begin{pmatrix}#1\end{pmatrix}}
+
+
+%% MATHBOX
+% PRE: #1 math expression
+% POST: typeset math expression in a box
+\newtcolorbox{mathbox}[1][]{%
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=black,
+    boxrule=0.5mm,
+    arc=0mm,
+    top=2pt, bottom=2pt, left=2pt, right=2pt,
+    before skip=0mm,
+    after skip=0mm,
+    #1
+}
