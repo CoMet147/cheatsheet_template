@@ -1,0 +1,17 @@
+# LaTeX intermediate and output files
+*.aux
+*.bbl
+*.blg
+*.log
+*.lof
+*.lot
+*.fls
+*.out
+*.toc
+*.fdb_latexmk
+*.synctex.gz
+*.pdf
+
+# Other build directories and files
+_minted*
+/auto/
